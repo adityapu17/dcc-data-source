@@ -5,4 +5,4 @@ pages_build_output_dir = "dist"
 [[d1_databases]]
 binding = "DB"
 database_name = "dcc-data-source-db"
-database_id = "REPLACE_AFTER_CREATE_D1"
+database_id = "96d48c57-ab30-4bc4-b6ea-d98c0b02dc1f"
