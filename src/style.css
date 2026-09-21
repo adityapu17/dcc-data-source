@@ -57,6 +57,7 @@ select{cursor:pointer;}
 .form-grid .field.span2{grid-column:span 2;}
 @media (max-width:760px){.form-grid{grid-template-columns:repeat(2,1fr);}}
 .cond-fields{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px;padding-top:12px;border-top:1px dashed var(--border);}
+.hidden{display:none !important;}
 .cond-fields.hidden{display:none;}
 .form-actions{display:flex;gap:8px;margin-top:16px;align-items:center;}
 button.btn{font-family:inherit;font-size:13px;font-weight:600;border-radius:var(--radius);padding:9px 16px;cursor:pointer;border:1px solid var(--border);background:var(--panel-2);color:var(--text);}

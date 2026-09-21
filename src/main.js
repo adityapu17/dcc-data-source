@@ -81,7 +81,7 @@ document.getElementById('app').innerHTML = `
           <div class="field span2"><label for="cResponse">Response Time rata-rata (menit)</label><input type="number" id="cResponse" min="0" step="0.01" placeholder="0.00"></div>
         </div>
         <div class="cond-fields hidden" id="cFieldsVoice">
-          <div class="field"><label for="cAht">AHT (detik)</label><input type="number" id="cAht" min="0" step="1" placeholder="0"></div>
+          <div class="field"><label for="cAht">AHT (menit)</label><input type="number" id="cAht" min="0" step="0.01" placeholder="0.00"></div>
           <div class="field"><label for="cScr">SCR (%)</label><input type="number" id="cScr" min="0" max="100" step="0.01" placeholder="0.00"></div>
         </div>
         <div class="form-actions">
@@ -131,7 +131,7 @@ document.getElementById('app').innerHTML = `
         <div class="field"><label>Channel</label><select id="mgChannel"><option value="all">Semua</option><option value="Email">Email</option><option value="Voice">Voice</option><option value="WhatsApp">WhatsApp</option></select></div>
       </div>
       <div class="table-scroll">
-        <table><thead><tr><th>Periode</th><th>Channel</th><th>Total Interaksi</th><th>Response (menit)</th><th>AHT (detik)</th><th>SCR (%)</th><th></th></tr></thead><tbody id="tableBodyChannel"></tbody></table>
+        <table><thead><tr><th>Periode</th><th>Channel</th><th>Total Interaksi</th><th>Response (menit)</th><th>AHT (menit)</th><th>SCR (%)</th><th></th></tr></thead><tbody id="tableBodyChannel"></tbody></table>
         <div class="empty-state hidden" id="emptyStateChannel">Belum ada data. Tambahkan lewat tab Input Data → Per Channel.</div>
       </div>
     </div>
@@ -410,7 +410,7 @@ function renderTableChannel(){
       <td><span class="chip ${CH_CLASS[r.channel]}">${r.channel}</span></td>
       <td class="mono">${fmtNum(r.totalInteraksi)}</td>
       <td class="mono">${r.responseTime!=null ? fmtNum(r.responseTime,2) : '—'}</td>
-      <td class="mono">${r.aht!=null ? fmtNum(r.aht) : '—'}</td>
+      <td class="mono">${r.aht!=null ? fmtNum(r.aht,2) : '—'}</td>
       <td class="mono">${r.scr!=null ? fmtNum(r.scr,2) : '—'}</td>
       <td><div class="row-actions">
         <button class="icon-btn" onclick="window.__editChannelRec('${r.id}')">Edit</button>
@@ -466,7 +466,7 @@ function renderSummaryChannel(rows){
     {label:'Email', value: fmtNum(byChannel.Email), cls:'accent-e'},
     {label:'Voice', value: fmtNum(byChannel.Voice), cls:'accent-v'},
     {label:'WhatsApp', value: fmtNum(byChannel.WhatsApp), cls:'accent-w'},
-    {label:'Rata-rata AHT', value: avgAht!=null ? fmtNum(avgAht)+' dtk' : '—', cls:'accent-v'},
+    {label:'Rata-rata AHT', value: avgAht!=null ? fmtNum(avgAht,2)+' mnt' : '—', cls:'accent-v'},
     {label:'Rata-rata SCR', value: avgScr!=null ? fmtNum(avgScr,2)+'%' : '—', cls:'accent-v'},
   ];
   document.getElementById('summaryCardsChannel').innerHTML = cards.map(c=>`<div class="card ${c.cls}"><div class="label">${c.label}</div><div class="value">${c.value}</div></div>`).join('');
@@ -510,7 +510,7 @@ function renderVoiceChart(rows){
   const ahtData = periods.map(([k])=>{ const items=voiceRows.filter(r=>periodKey(r)===k && r.aht!=null); return items.length ? items.reduce((s,r)=>s+r.aht,0)/items.length : null; });
   const scrData = periods.map(([k])=>{ const items=voiceRows.filter(r=>periodKey(r)===k && r.scr!=null); return items.length ? items.reduce((s,r)=>s+r.scr,0)/items.length : null; });
   charts.voice = new Chart(document.getElementById('chartVoice'), { type:'line', data:{ labels: periods.map(p=>p[1]), datasets:[
-    {label:'AHT (detik)', data: ahtData, borderColor:'#F2A93B', backgroundColor:'#F2A93B', yAxisID:'y', tension:0.3, borderWidth:2, pointRadius:3},
+    {label:'AHT (menit)', data: ahtData, borderColor:'#F2A93B', backgroundColor:'#F2A93B', yAxisID:'y', tension:0.3, borderWidth:2, pointRadius:3},
     {label:'SCR (%)', data: scrData, borderColor:'#7C93F0', backgroundColor:'#7C93F0', yAxisID:'y1', tension:0.3, borderWidth:2, pointRadius:3},
   ]}, options: baseChartOptions({legend:true, dualAxis:true}) });
 }
