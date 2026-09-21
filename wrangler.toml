@@ -1,0 +1,8 @@
+name = "dcc-data-source"
+compatibility_date = "2024-09-01"
+pages_build_output_dir = "dist"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "dcc-data-source-db"
+database_id = "REPLACE_AFTER_CREATE_D1"
